@@ -155,6 +155,7 @@
     AND   solicitudes.id_grupo_actual= grupos2.id_grupo
     AND   solicitudes.rechazado <> 1
     ORDER BY movimientos.descripcion, solicitudes.usuario, solicitudes.fecha_modificacion DESC, solicitudes.id_movimiento ASC, solicitudes.usuario ASC";
+    
   $data = mysqli_query($dbc, $query);
 
   echo '<p class="titulo1">Solicitudes</p>';
