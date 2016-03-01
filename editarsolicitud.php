@@ -38,7 +38,7 @@
 
   $query = "SELECT 
     solicitudes.id_solicitud AS num_solicitud, solicitudes.id_valija, solicitudes.fecha_captura_ca, 
-    solicitudes.fecha_solicitud_del, solicitudes.id_lote, solicitudes.anio_lote,
+    solicitudes.fecha_solicitud_del, solicitudes.id_lote, lotes.lote_anio,
     (SELECT CONCAT('(', valijas.delegacion,')', delegaciones.descripcion) FROM valijas, delegaciones WHERE valijas.id_valija = solicitudes.id_valija AND delegaciones.delegacion = valijas.delegacion) AS delsolicitante_descripcion, 
     solicitudes.delegacion AS num_del, delegaciones.descripcion AS delegacion_descripcion, 
     solicitudes.subdelegacion AS num_subdel, subdelegaciones.descripcion AS subdelegacion_descripcion, 
@@ -47,17 +47,19 @@
     movimientos.descripcion AS movimiento_descripcion, 
     grupos1.descripcion AS grupo_nuevo, grupos2.descripcion AS grupo_actual, 
     solicitudes.comentario, solicitudes.rechazado, solicitudes.archivo
-    FROM solicitudes, delegaciones, subdelegaciones, movimientos, grupos grupos1, grupos grupos2
+    FROM solicitudes, delegaciones, subdelegaciones, movimientos, grupos grupos1, grupos grupos2, lotes
     WHERE solicitudes.id_solicitud  = '" . $parametro . "'
-    AND   solicitudes.id_valija     = $id_valija
     AND   solicitudes.delegacion    = subdelegaciones.delegacion
     AND   solicitudes.subdelegacion = subdelegaciones.subdelegacion
     AND   solicitudes.delegacion    = delegaciones.delegacion
     AND   solicitudes.id_movimiento = movimientos.id_movimiento
     AND   solicitudes.id_grupo_nuevo= grupos1.id_grupo
     AND   solicitudes.id_grupo_actual= grupos2.id_grupo
+    AND   solicitudes.id_lote       = lotes.id_lote
     ORDER BY solicitudes.id_movimiento ASC, solicitudes.usuario ASC";
 
+//AND   solicitudes.id_valija     = $id_valija
+    echo $query;
   $data = mysqli_query($dbc, $query);
 
   if (mysqli_num_rows($data) == 1) {
@@ -66,7 +68,7 @@
     echo '<p class="titulo1">Detalle de la solicitud #' . $parametro . ' - ' . $row['usuario'] . '</p>';
 
     echo '<table>';
-    echo '<tr><td class="titulo2"># de Lote:</td><td class="dato">' . $row['id_lote'] . ' / ' . $row['anio_lote'] . '</td></tr>';
+    echo '<tr><td class="titulo2"># de Lote:</td><td class="dato">' . $row['id_lote'] . ' / ' . $row['lote_anio'] . '</td></tr>';
     echo '<tr><td class="titulo2"># Valija:</td><td class="dato">' . $row['id_valija'] . '</td></tr>';
     echo '<tr><td class="titulo2"># Solicitud:</td><td class="dato">' . $row['num_solicitud'] . '</td></tr>';
     echo '<tr><td class="titulo2">Fecha captura:</td><td class="dato">' . $row['fecha_captura_ca'] . '</td></tr>';
@@ -105,7 +107,7 @@
 
   $query = "SELECT 
     solicitudes.id_solicitud, solicitudes.id_valija, solicitudes.fecha_captura_ca, 
-    solicitudes.fecha_solicitud_del, solicitudes.id_lote, solicitudes.anio_lote,
+    solicitudes.fecha_solicitud_del, solicitudes.id_lote, lotes.lote_anio,
     delegaciones.descripcion AS delegacion_descripcion, subdelegaciones.descripcion AS subdelegacion_descripcion, 
     solicitudes.nombre, solicitudes.primer_apellido, solicitudes.segundo_apellido, 
     solicitudes.matricula, solicitudes.curp, solicitudes.cargo, solicitudes.usuario, 
@@ -120,6 +122,7 @@
     AND   solicitudes.id_movimiento = movimientos.id_movimiento
     AND   solicitudes.id_grupo_nuevo= grupos1.id_grupo
     AND   solicitudes.id_grupo_actual= grupos2.id_grupo
+    AND   solicitudes.id_lote       = lotes.id_lote
     ORDER BY solicitudes.id_movimiento ASC, solicitudes.usuario ASC";
   $data = mysqli_query($dbc, $query);
 
@@ -146,7 +149,7 @@
   while ( $row = mysqli_fetch_array($data) ) {
     echo '<tr class="dato"><td class="lista"><a href="versolicitud.php?id_solicitud=' . $row['id_solicitud'] . '">' . $row['id_solicitud'] . '</a></td>';
     echo '<td class="lista"><a href="editarvalija.php?id_valija=' . $row['id_valija'] . '">' . $row['id_valija'] . '</a></td>';
-    echo '<td class="lista">' . $row['id_lote'] . ' / ' . $row['anio_lote'] . '</td>'; echo '<td class="lista">' . $row['fecha_captura_ca'] . '</td>';
+    echo '<td class="lista">' . $row['id_lote'] . ' / ' . $row['lote_anio'] . '</td>'; echo '<td class="lista">' . $row['fecha_captura_ca'] . '</td>';
     echo '<td class="lista">' . $row['delegacion_descripcion'] . '</td>'; echo '<td class="lista">' . $row['subdelegacion_descripcion'] . '</td>';
     echo '<td class="lista">' . $row['primer_apellido'] . '</td>'; echo '<td class="lista">' . $row['segundo_apellido'] . '</td>'; echo '<td>' . $row['nombre'] . '</td>';
     echo '<td class="lista">' . $row['matricula'] . '</td>'; echo '<td class="lista">' . $row['curp'] . '</td>'; echo '<td class="lista">' . $row['usuario'] . '</td>';

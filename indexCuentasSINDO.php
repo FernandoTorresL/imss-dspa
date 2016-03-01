@@ -153,9 +153,12 @@
     AND   solicitudes.id_movimiento = movimientos.id_movimiento
     AND   solicitudes.id_grupo_nuevo= grupos1.id_grupo
     AND   solicitudes.id_grupo_actual= grupos2.id_grupo
-    AND   solicitudes.rechazado <> 1
-    ORDER BY movimientos.descripcion, solicitudes.usuario, solicitudes.fecha_modificacion DESC, solicitudes.id_movimiento ASC, solicitudes.usuario ASC";
-    
+    AND   solicitudes.id_lote = 12
+    ORDER BY solicitudes.usuario ASC, solicitudes.fecha_modificacion DESC, solicitudes.id_movimiento ASC, solicitudes.usuario ASC";
+    //movimientos.descripcion, solicitudes.usuario,
+    //AND   solicitudes.rechazado <> 1
+    //AND   solicitudes.id_lote = 4
+    //AND   solicitudes.rechazado <> 1
   $data = mysqli_query($dbc, $query);
 
   echo '<p class="titulo1">Solicitudes</p>';
@@ -173,6 +176,7 @@
   echo '<th>Matr&iacute;cula</th>';
   echo '<th>CURP</th>';
   echo '<th>CURP correcta</th>';
+  echo '<th>Cargo</th>';
   echo '<th>Usuario</th>';
   echo '<th>Movimiento</th><th>Grupo nuevo</th><th>Grupo actual</th>';
   echo '<th>Comentario</th><th>Rechazado</th><th>Archivo</th>';
@@ -202,6 +206,7 @@
     echo '<td class="lista">' . $row['matricula'] . '</td>'; 
     echo '<td class="lista">' . $row['curp'] . '</td>'; 
     echo '<td class="lista">' . $row['curp_correcta'] . '</td>'; 
+    echo '<td class="lista">' . $row['cargo'] . '</td>';
     echo '<td class="lista">' . $row['usuario'] . '</td>';
     echo '<td class="lista">' . $row['movimiento_descripcion'] . '</td>'; 
     echo '<td class="lista">' . $row['grupo_nuevo'] . '</td>'; 

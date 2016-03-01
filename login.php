@@ -31,9 +31,9 @@
 
         if (!empty($user_username) && !empty($user_password)) {
 
-          if ( ($user_username <> 'totm730605hmcvrr') && 
-                ($user_username <> 'momm650428hdfrjg') &&
-                ($user_username <> 'TOLF781016HDFRGR') ) {
+          if ( ($user_username <> 'totm730605hmcvrr09') && 
+                ($user_username <> 'momm650428hdfrjg01') &&
+                ($user_username <> 'TOLF781016HDFRGR01') ) {
             //echo $user_username;
             echo '<p class="error">Usuario no aprobado por el Administrador. Por favor <a href="login.php">inicia sesi&oacute;n</a> con un usuario pre-aprobado para acceder a esta p&aacute;gina.</p>';
             // Insert the page footer
