@@ -30,7 +30,6 @@
         if ( ($user_username <> 'totm730605hmcvrr09') && 
               ($user_username <> 'momm650428hdfrjg01') &&
               ($user_username <> 'SARF700309HDFNMR09') &&
-              ($user_username <> 'tmp') &&
               ($user_username <> 'TOLF781016HDFRGR01') ) {
           echo '<p class="error">Usuario no aprobado por el Administrador. Por favor solicita aprobación o <a href="login.php">inicia sesi&oacute;n</a> con un usuario pre-aprobado para acceder a esta p&aacute;gina.</p>';
           // Insert the page footer
