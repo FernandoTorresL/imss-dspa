@@ -10,7 +10,7 @@
   require_once('header.php');
 
   if (!isset($_SESSION['user_id'])) {
-    echo '<p class="login">Por favor <a href="../login.php">inicia sesión</a> para acceder a esta página.</p>';
+    echo '<p class="login">Por favor <a href="../login.php">inicia sesi&oacute;n con un usuario pre-aprobado</a> para acceder a esta p&aacute;gina.</p>';
     // Insert the page footer
     require_once('footer.php');
     exit();
